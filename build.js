@@ -13,7 +13,12 @@ const build = async () => {
     fs.mkdirSync('dist');
 
     // Copiar ficheiros estáticos
-    fs.copyFileSync('index.html', 'dist/index.html');
+    let indexHtml = fs.readFileSync('index.html', 'utf-8');
+    indexHtml = indexHtml.replace(
+      '<script type="module" src="./src/main.tsx"></script>',
+      '<script type="module" src="./main.js"></script>'
+    );
+    fs.writeFileSync('dist/index.html', indexHtml);
     if (fs.existsSync('public')) {
       fs.cpSync('public', 'dist/public', { recursive: true });
     }
