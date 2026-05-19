@@ -1,0 +1,41 @@
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.game-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.scores {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.player-score {
+  font-weight: bold;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  }
+
+  .card {
+    width: 60px;
+    height: 60px;
+  }
+}
