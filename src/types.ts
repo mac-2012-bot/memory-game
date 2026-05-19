@@ -1,27 +1,27 @@
-export type CardType = {
+export interface CardType {
   id: string;
   pairId: string; // Identificador do par
   image: string; // URL ou símbolo
   isFlipped: boolean;
   isMatched: boolean;
-};
+}
 
-export type Player = {
+export interface Player {
   id: number;
   name: string;
   score: number;
-};
+}
 
-export type Theme = {
+export interface Theme {
   name: string;
   cards: string[]; // Array de imagens/símbolos
-};
+}
 
-export type GameState = {
+export interface GameState {
   cards: CardType[];
   players: Player[];
   currentPlayerIndex: number;
   flippedCards: CardType[];
   gameOver: boolean;
   theme: Theme;
-};
+}
