@@ -15,7 +15,7 @@ const build = async () => {
     // Copiar ficheiros estáticos
     let indexHtml = fs.readFileSync('index.html', 'utf-8');
     indexHtml = indexHtml.replace(
-      '<script type="module" src="./src/main.tsx"></script>',
+      '<script type="module" src="./main.js"></script>',
       '<script type="module" src="./main.js"></script>'
     );
     fs.writeFileSync('dist/index.html', indexHtml);

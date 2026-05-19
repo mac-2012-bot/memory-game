@@ -8,7 +8,10 @@ export default defineConfig({
     jsxFactory: 'React.createElement',
     jsxFragment: 'React.Fragment',
   },
+  base: '/memory-game/', // Path base para o GitHub Pages
   build: {
     minify: 'esbuild', // Força o uso do esbuild
+    outDir: 'dist', // Diretório de saída
+    emptyOutDir: true, // Limpa o diretório de saída antes do build
   },
 });
