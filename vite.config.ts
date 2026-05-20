@@ -4,13 +4,8 @@ import react from '@vitejs/plugin-react';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  esbuild: {
-    jsxFactory: 'React.createElement',
-    jsxFragment: 'React.Fragment',
-  },
   base: '/memory-game/', // Path base para o GitHub Pages
   build: {
-    minify: 'esbuild', // Força o uso do esbuild
     outDir: 'dist', // Diretório de saída
     emptyOutDir: true, // Limpa o diretório de saída antes do build
   },

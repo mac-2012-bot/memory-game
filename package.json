@@ -6,7 +6,7 @@
   "homepage": "https://mac-2012-bot.github.io/memory-game/",
   "scripts": {
     "dev": "vite",
-    "build": "node build.js",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
