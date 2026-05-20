@@ -8,5 +8,6 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Diretório de saída
     emptyOutDir: true, // Limpa o diretório de saída antes do build
+    minify: 'esbuild', // Força o uso do esbuild
   },
 });
