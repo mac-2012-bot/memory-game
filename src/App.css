@@ -44,6 +44,7 @@ h1 {
   gap: 10px;
   justify-content: center;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .player-list {
@@ -53,25 +54,85 @@ h1 {
   gap: 10px;
 }
 
+/* ===== Material-style buttons ===== */
 button {
+  position: relative;
+  overflow: hidden;
   background: #4a6baf;
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 22px;
+  border-radius: 20px;        /* pill — MD3 style */
   cursor: pointer;
-  font-size: 16px;
-  transition: background 0.3s;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: none;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.15),
+    0 4px 8px rgba(74,107,175,0.25);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 
 button:hover {
   background: #3a5a9f;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.2),
+    0 6px 12px rgba(74,107,175,0.35);
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.2),
+    0 2px 4px rgba(74,107,175,0.3);
+}
+
+/* Ripple effect */
+button::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+}
+
+button:active::after {
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.6s ease;
+}
+
+/* Tonal variant (botões secundários) */
+button.tonal {
+  background: #e8eaf6;
+  color: #4a6baf;
+  box-shadow: none;
+}
+
+button.tonal:hover {
+  background: #d5d9ee;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .start-button {
   margin-top: 20px;
-  padding: 12px 24px;
+  padding: 14px 32px;
   font-size: 18px;
+  border-radius: 24px;
+  box-shadow:
+    0 3px 6px rgba(0,0,0,0.18),
+    0 6px 14px rgba(74,107,175,0.3);
 }
 
 .game-over {
@@ -79,7 +140,18 @@ button:hover {
 }
 
 select {
-  padding: 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #cfd2dc;
+  background: white;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:focus {
+  outline: none;
+  border-color: #4a6baf;
+  box-shadow: 0 0 0 3px rgba(74,107,175,0.2);
 }

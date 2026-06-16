@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GameBoard from './components/GameBoard';
+import Splash from './components/Splash';
 import type { Player, Theme } from './types';
 import './App.css';
 
 const App: React.FC = () => {
+  const [showSplash, setShowSplash] = useState(true);
   const [players, setPlayers] = useState<Player[]>([
     { id: 1, name: 'Jogador 1', score: 0 },
     { id: 2, name: 'Jogador 2', score: 0 },
@@ -29,6 +31,12 @@ const App: React.FC = () => {
       cards: ['★', '☆', '♠', '♣', '♥', '♦', '✿', '❀'],
     },
   ];
+
+  // Splash screen: mostra durante ~1.8s, depois fade out
+  useEffect(() => {
+    const fadeTimer = setTimeout(() => setShowSplash(false), 1800);
+    return () => clearTimeout(fadeTimer);
+  }, []);
 
   const handleStartGame = () => {
     setGameStarted(true);
@@ -57,6 +65,10 @@ const App: React.FC = () => {
     );
   };
 
+  if (showSplash) {
+    return <Splash onFinish={() => setShowSplash(false)} />;
+  }
+
   return (
     <div className={`app ${gameStarted && !winner ? 'playing' : ''}`}>
       <h1>Jogo da Memória</h1>
@@ -68,8 +80,8 @@ const App: React.FC = () => {
           <div className="players-config">
             <h3>Jogadores ({players.length})</h3>
             <div className="player-buttons">
-              <button onClick={handleAddPlayer}>Adicionar Jogador</button>
-              <button onClick={handleRemovePlayer}>Remover Jogador</button>
+              <button className="tonal" onClick={handleAddPlayer}>Adicionar Jogador</button>
+              <button className="tonal" onClick={handleRemovePlayer}>Remover Jogador</button>
             </div>
             <div className="player-list">
               {players.map((player) => (
