@@ -58,7 +58,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${gameStarted && !winner ? 'playing' : ''}`}>
       <h1>Jogo da Memória</h1>
 
       {!gameStarted ? (
