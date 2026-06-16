@@ -1,4 +1,5 @@
-import { CardType, Theme, GameState, Player } from './types';
+import type { CardType, Theme, GameState, Player } from './types';
+import { MOVES_PER_LEVEL } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
 // Baralhar array (Fisher-Yates)
@@ -24,6 +25,14 @@ export const createCards = (theme: Theme): CardType[] => {
   return shuffleArray(cards);
 };
 
+// Velocidade progressiva — começa devagar, acelera com o nível
+// Nível 1: 2000ms, Nível 2: 1800ms, ... mínimo 400ms
+export const flipDelayForLevel = (level: number): number => {
+  const base = 2000;
+  const decay = 200 * (level - 1);
+  return Math.max(400, base - decay);
+};
+
 // Inicializar estado do jogo
 export const initializeGame = (players: Player[], theme: Theme): GameState => {
   return {
@@ -33,6 +42,9 @@ export const initializeGame = (players: Player[], theme: Theme): GameState => {
     flippedCards: [],
     gameOver: false,
     theme,
+    level: 1,
+    movesInLevel: 0,
+    flipDelayMs: flipDelayForLevel(1),
   };
 };
 
@@ -63,6 +75,7 @@ export const flipCard = (gameState: GameState, cardId: string): GameState => {
         cards: updatedCards,
         players: updatedPlayers,
         flippedCards: [],
+        movesInLevel: gameState.movesInLevel + 1,
       };
     } else {
       // Não é par, passa a vez
@@ -71,6 +84,7 @@ export const flipCard = (gameState: GameState, cardId: string): GameState => {
         cards: newCards,
         flippedCards: newFlippedCards,
         currentPlayerIndex: (currentPlayerIndex + 1) % players.length,
+        movesInLevel: gameState.movesInLevel + 1,
       };
     }
   }
@@ -78,9 +92,9 @@ export const flipCard = (gameState: GameState, cardId: string): GameState => {
   return { ...gameState, cards: newCards, flippedCards: newFlippedCards };
 };
 
-// Resetar cartas viradas (após 1 segundo)
+// Resetar cartas viradas (após o delay do nível)
 export const resetFlippedCards = (gameState: GameState): GameState => {
-  const { cards, flippedCards } = gameState;
+  const { cards, flippedCards, movesInLevel, level } = gameState;
   if (flippedCards.length !== 2) return gameState;
 
   const updatedCards = cards.map((card) =>
@@ -89,7 +103,19 @@ export const resetFlippedCards = (gameState: GameState): GameState => {
       : card
   );
 
-  return { ...gameState, cards: updatedCards, flippedCards: [] };
+  // Verifica se passámos de nível (a cada MOVES_PER_LEVEL jogadas)
+  const didLevelUp = movesInLevel >= MOVES_PER_LEVEL;
+  const newLevel = didLevelUp ? level + 1 : level;
+  const newMoves = didLevelUp ? 0 : movesInLevel;
+
+  return {
+    ...gameState,
+    cards: updatedCards,
+    flippedCards: [],
+    level: newLevel,
+    movesInLevel: newMoves,
+    flipDelayMs: flipDelayForLevel(newLevel),
+  };
 };
 
 // Verificar se o jogo acabou

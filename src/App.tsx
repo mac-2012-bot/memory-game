@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import GameBoard from './components/GameBoard';
-import { Player, Theme } from './types';
+import type { Player, Theme } from './types';
 import './App.css';
 
 const App: React.FC = () => {

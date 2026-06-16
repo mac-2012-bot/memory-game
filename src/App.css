@@ -18,6 +18,12 @@ body {
   width: 100%;
 }
 
+.app.playing {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
 h1 {
   color: #4a6baf;
 }

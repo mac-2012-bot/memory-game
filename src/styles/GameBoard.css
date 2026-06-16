@@ -4,6 +4,9 @@
   align-items: center;
   padding: 20px;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .game-info {
@@ -11,10 +14,18 @@
   text-align: center;
 }
 
+.level-info {
+  margin-top: 8px;
+  font-size: 1.1em;
+  color: #4a5568;
+}
+
 .scores {
   display: flex;
   gap: 20px;
   margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .player-score {
@@ -25,17 +36,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: 10px;
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 @media (max-width: 600px) {
   .cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  }
-
-  .card {
-    width: 60px;
-    height: 60px;
   }
 }
